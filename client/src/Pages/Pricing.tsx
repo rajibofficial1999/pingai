@@ -72,7 +72,7 @@ const Pricing = () => {
           </div>
         </div>
 
-        <div className="pt-12 grid grid-cols-1 gap-10 md:grid-cols-3 mx-auto">
+        <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-3 mx-auto">
           <TooltipProvider>
             {stripePlan.map((stripePlan) => {
               return (

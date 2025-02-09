@@ -6,7 +6,8 @@ import SignIn from "@/Pages/Auth/SignIn.tsx";
 import SignUp from "@/Pages/Auth/SignUp.tsx";
 import Dashboard from "@/Pages/Dashboard/Index";
 import Pricing from "@/Pages/Pricing";
-import Billing from "@/Pages/Dashboard/Billing";
+import Billing from "@/Pages/Dashboard/Account/Billing.tsx";
+import AccountSettings from "@/Pages/Dashboard/Account/Settings.tsx";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <Route element={<AuthLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/billing" element={<Billing />} />
+        <Route path="/dashboard/account-settings" element={<AccountSettings />} />
       </Route>
     </Routes>
   );

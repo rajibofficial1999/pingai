@@ -54,7 +54,7 @@ const Navbar = () => {
                 </Link>
 
                 <UserAccountNav
-                  name={user.name ?? "Your Account"}
+                  name={user.name ?? "Your AccountSettings"}
                   email={user.email ?? ""}
                   imageUrl={user.avatar ?? null}
                 />

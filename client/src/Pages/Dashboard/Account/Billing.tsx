@@ -1,7 +1,7 @@
-import { DashboardPage } from "@/components/DashboardPage";
-import { Card } from "@/components/ui/card";
+import { DashboardPage } from "@/components/DashboardPage.tsx";
+import { Card } from "@/components/ui/card.tsx";
 import { RootState } from "@/lib/store";
-import { getUserSubscriptionDetails } from "@/lib/stripe";
+import { getUserSubscriptionDetails } from "@/lib/stripe.ts";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { format } from "date-fns";
@@ -22,7 +22,10 @@ const Billing = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleCheckout = async () => {
-    subscriptionPlan?.name?.toLowerCase() === "free" && navigate("/pricing");
+    if(subscriptionPlan && subscriptionPlan?.name?.toLowerCase() === "free") {
+      navigate("/pricing");
+      return false
+    }
     setIsLoading(true);
 
     try {

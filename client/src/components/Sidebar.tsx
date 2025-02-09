@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
-import { Gem, Home, Key, LucideIcon, Settings } from "lucide-react";
+import { Gem, Home, LucideIcon, Settings } from "lucide-react";
 import { Link } from "react-router";
 import { buttonVariants } from "./ui/button";
+import UserButton from "@/components/UserButton.tsx";
 
 interface SidebarItem {
   href: string;
@@ -21,18 +22,18 @@ const SIDEBAR_ITEMS: SidebarCategory[] = [
   },
   {
     category: "Account",
-    items: [{ href: "/dashboard/billing", icon: Gem, text: "Billing" }],
-  },
-  {
-    category: "Settings",
     items: [
-      { href: "/dashboard/api-key", icon: Key, text: "API Key" },
+      {href: "/dashboard/billing", icon: Gem, text: "Billing" },
       {
         href: "/dashboard/account-settings",
         icon: Settings,
-        text: "Account Settings",
+        text: "Settings",
       },
     ],
+  },
+  {
+    category: "Test",
+    items: [{ href: "/dashboard/test", icon: Gem, text: "Test" }],
   },
 ];
 
@@ -74,16 +75,8 @@ const Sidebar = ({ onClose }: { onClose?: () => void }) => {
       </div>
 
       <div className="flex flex-col">
-        <hr className="my-4 md:my-6 w-full h-px bg-gray-100" />
-
-        {/* <UserButton
-          showName
-          appearance={{
-            elements: {
-              userButtonBox: "flex-row-reverse",
-            },
-          }}
-        /> */}
+        <hr className="my-3 w-full h-px bg-gray-100" />
+        <UserButton/>
       </div>
     </div>
   );

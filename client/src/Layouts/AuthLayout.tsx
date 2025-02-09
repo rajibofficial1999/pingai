@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { Modal } from "@/components/ui/modal";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 
@@ -53,12 +53,6 @@ const AuthLayout = () => {
             <p className="text-lg/7 font-semibold text-brand-900">
               Ping<span className="text-brand-700">Panda</span>
             </p>
-            <button
-              aria-label="Close modal"
-              onClick={() => setIsDrawerOpen(false)}
-            >
-              <X className="size-6" />
-            </button>
           </div>
 
           <Sidebar />

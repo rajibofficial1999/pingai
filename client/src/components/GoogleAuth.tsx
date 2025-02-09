@@ -3,21 +3,26 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "@/lib/firebase.ts";
 import axiosInstance from "@/lib/axios.ts";
 import { useNavigate } from "react-router";
+import {useDispatch} from "react-redux";
+import {setUser} from "@/lib/store/authSlice.ts";
 
 const GoogleAuth = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const googleSignIn = async (user: any) => {
     const { displayName, email, photoURL } = user;
     try {
-      const response = await axiosInstance.post("/auth/google-sign-in", {
+      const { data } = await axiosInstance.post("/auth/google-sign-in", {
         name: displayName,
         email,
         avatar: photoURL,
       });
-      console.log(response);
+      if(data.success){
+        dispatch(setUser(data.user));
+        navigate("/dashboard");
+      };
 
-      navigate("/dashboard");
     } catch (error: any) {
       console.log(error);
     }

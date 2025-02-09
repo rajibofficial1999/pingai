@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axios";
 import { removeUser } from "@/lib/store/authSlice";
-import { Gem, LayoutDashboard } from "lucide-react";
+import {Gem, LayoutDashboard, LogOut} from "lucide-react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { Icons } from "./Icons";
@@ -95,7 +95,7 @@ const UserAccountNav = ({ email, imageUrl, name }: UserAccountNavProps) => {
             onClick={handleSignOut}
             className="text-red-500 flex items-center"
           >
-            <LayoutDashboard className="h-4" /> <span>Log out</span>
+            <LogOut className="h-4" /> <span>Log out</span>
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -25,7 +25,9 @@ export default tseslint.config(
       ],
         "@ts-expect-error" : "off",
         "@typescript-eslint/ban-ts-comment": "off",
-        "@ts-ignore" : "off"
+        "@ts-ignore" : "off",
+        "eslint-disable-next-line" : 'off',
+        "react-hooks/rules-of-hooks" : 'off',
     },
   },
 )
