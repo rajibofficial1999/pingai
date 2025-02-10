@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { Gem, Home, LucideIcon, Settings } from "lucide-react";
 import { Link } from "react-router";
 import { buttonVariants } from "./ui/button";
-import UserButton from "@/components/UserButton.tsx";
+import UserSidebarDropDown from "@/components/UserSidebarDropDown";
 
 interface SidebarItem {
   href: string;
@@ -23,7 +23,7 @@ const SIDEBAR_ITEMS: SidebarCategory[] = [
   {
     category: "Account",
     items: [
-      {href: "/dashboard/billing", icon: Gem, text: "Billing" },
+      { href: "/dashboard/billing", icon: Gem, text: "Billing" },
       {
         href: "/dashboard/account-settings",
         icon: Settings,
@@ -41,9 +41,9 @@ const Sidebar = ({ onClose }: { onClose?: () => void }) => {
   return (
     <div className="space-y-4 md:space-y-6 relative z-20 flex flex-col h-full">
       {/* logo */}
-      <p className="hidden sm:block text-lg/7 font-semibold text-brand-900">
-        Ping<span className="text-brand-700">AI</span>
-      </p>
+      <Link to="/">
+        <img src="/images/logo.svg" alt="logo" width={150} />
+      </Link>
 
       {/* navigation items */}
       <div className="flex-grow">
@@ -76,7 +76,7 @@ const Sidebar = ({ onClose }: { onClose?: () => void }) => {
 
       <div className="flex flex-col">
         <hr className="my-3 w-full h-px bg-gray-100" />
-        <UserButton/>
+        <UserSidebarDropDown />
       </div>
     </div>
   );

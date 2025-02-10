@@ -53,7 +53,7 @@ const Pricing = () => {
               onClick={() => setSelectedRecurring("month")}
               type="button"
               className={cn("px-5 py-3 rounded-l-full cursor-pointer", {
-                "bg-gradient-to-r from-primary to-primary/70 text-white":
+                "bg-gradient-to-r from-blue-600 to-cyan-600 text-white":
                   selectedRecurring === "month",
               })}
             >
@@ -63,7 +63,7 @@ const Pricing = () => {
               onClick={() => setSelectedRecurring("year")}
               type="button"
               className={cn("px-5 py-3 rounded-r-full cursor-pointer", {
-                "bg-gradient-to-r from-primary to-primary/70 text-white":
+                "bg-gradient-to-r from-blue-600 to-cyan-600 text-white":
                   selectedRecurring === "year",
               })}
             >

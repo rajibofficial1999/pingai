@@ -1,12 +1,12 @@
 import { PLANS } from "@/config/stripe";
-import { ArrowRight, Check, Minus } from "lucide-react";
-import UpgradeButton from "./UpgradeButton";
-import { Link } from "react-router";
-import { buttonVariants } from "./ui/button";
-import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { Check, Minus, MoveRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router";
+import { buttonVariants } from "./ui/button";
+import UpgradeButton from "./UpgradeButton";
 
 interface PricingCardProps {
   stripePlan: Plan;
@@ -56,7 +56,7 @@ export const PricingCard = ({
       )}
     >
       {isUpgradeToStandard && (
-        <div className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-primary to-primary/80 px-3 py-2 text-sm font-medium text-white">
+        <div className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white">
           Upgrade now
         </div>
       )}
@@ -80,29 +80,31 @@ export const PricingCard = ({
           <Link
             to={user ? "/dashboard" : "/sign-in"}
             className={buttonVariants({
-              className: "w-full",
+              className: "w-full py-5",
               variant: "secondary",
             })}
           >
             {user ? "Upgrade now" : "Sign up"}
-            <ArrowRight className="h-5 w-5 ml-1.5" />
+            <MoveRight className="h-5 w-5 ml-1" />
           </Link>
         ) : user ? (
           <>
             <UpgradeButton
               priceId={priceData?.id ?? ""}
               isUserCurrentPlan={isUserCurrentPlan}
+              credits={currentPlan?.credits}
             />
           </>
         ) : (
           <Link
             to="/sign-in"
             className={buttonVariants({
-              className: "w-full",
+              className:
+                "w-full py-5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600",
             })}
           >
             {user ? "Upgrade now" : "Sign up"}
-            <ArrowRight className="h-5 w-5 ml-1.5" />
+            <MoveRight className="h-5 w-5 ml-1" />
           </Link>
         )}
       </div>

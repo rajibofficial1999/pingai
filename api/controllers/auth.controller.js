@@ -6,7 +6,15 @@ import { v4 as uuid } from "uuid";
 
 export const SignUp = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, credits } = req.body;
+
+    if (!name || !email || !password || !credits) {
+      return res.status(422).json({
+        success: false,
+        message: "Invalid field values.",
+      });
+    }
+
     const checkUser = await User.findOne({ email });
 
     if (checkUser) {
@@ -18,7 +26,12 @@ export const SignUp = async (req, res, next) => {
 
     const hashedPassword = await hashPassword(password);
 
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      availableCredits: credits,
+    });
 
     await user.save();
 
@@ -65,7 +78,7 @@ export const SignIn = async (req, res, next) => {
 
 export const createGoogleUser = async (req, res, next) => {
   try {
-    const { name, email, avatar } = req.body;
+    const { name, email, avatar, credits } = req.body;
 
     let user = await User.findOne({ email });
 
@@ -74,7 +87,13 @@ export const createGoogleUser = async (req, res, next) => {
       user.avatar = avatar;
     } else {
       const hashedPassword = await hashPassword(uuid());
-      user = new User({ name, email, avatar, password: hashedPassword });
+      user = new User({
+        name,
+        email,
+        avatar,
+        password: hashedPassword,
+        availableCredits: credits,
+      });
     }
 
     await user.save();

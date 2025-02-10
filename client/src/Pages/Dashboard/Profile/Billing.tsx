@@ -1,31 +1,30 @@
 import { DashboardPage } from "@/components/DashboardPage.tsx";
 import { Card } from "@/components/ui/card.tsx";
-import { RootState } from "@/lib/store";
 import { getUserSubscriptionDetails } from "@/lib/stripe.ts";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { format } from "date-fns";
 import { BarChart, Loader } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY!);
 
 const Billing = () => {
-  const { user } = useSelector((state: RootState) => state.auth);
-
   const navigate = useNavigate();
 
   const [subscriptionPlan, setSubscriptionPlan] =
     useState<UserPlanDetails | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [user, setUser] = useState<User | null>(null);
+
   const handleCheckout = async () => {
-    if(subscriptionPlan && subscriptionPlan?.name?.toLowerCase() === "free") {
+    if (subscriptionPlan && subscriptionPlan?.name?.toLowerCase() === "free") {
       navigate("/pricing");
-      return false
+      return false;
     }
+
     setIsLoading(true);
 
     try {
@@ -34,6 +33,7 @@ const Billing = () => {
         {
           price: subscriptionPlan?.stripePriceId,
           userId: user?.id,
+          credits: subscriptionPlan?.credits,
         }
       );
 
@@ -52,6 +52,8 @@ const Billing = () => {
   useEffect(() => {
     const getSubscriptionPlan = async () => {
       const userPlan = await getUserSubscriptionDetails();
+
+      setUser(userPlan?.user);
 
       setSubscriptionPlan(userPlan);
     };
@@ -80,27 +82,25 @@ const Billing = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="border-2 border-brand-700 p-4">
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <p className="text-sm/6 font-medium">Total Events</p>
+              <p className="text-sm/6 font-medium">Available credits</p>
               <BarChart className="size-4 text-muted-foreground" />
             </div>
 
             <div>
-              <p className="text-2xl font-bold">50 of 100</p>
-              <p className="text-xs/5 text-muted-foreground">
-                Events this period
-              </p>
+              <p className="text-2xl font-bold">{user?.availableCredits}</p>
+              <p className="text-xs/5 text-muted-foreground">This period</p>
             </div>
           </Card>
           <Card className="p-4">
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <p className="text-sm/6 font-medium">Event Categories</p>
+              <p className="text-sm/6 font-medium">Total credits</p>
               <BarChart className="size-4 text-muted-foreground" />
             </div>
 
             <div>
-              <p className="text-2xl font-bold">0 of 10</p>
+              <p className="text-2xl font-bold">{subscriptionPlan?.credits}</p>
               <p className="text-xs/5 text-muted-foreground">
-                Active categories
+                per {subscriptionPlan?.interval}
               </p>
             </div>
           </Card>
@@ -121,7 +121,12 @@ const Billing = () => {
                 onClick={() => handleCheckout()}
                 className="inline cursor-pointer underline text-brand-600"
               >
-                Renew your plan &rarr;
+                {subscriptionPlan &&
+                subscriptionPlan?.name?.toLowerCase() === "free" ? (
+                  <>Upgrate now &rarr;</>
+                ) : (
+                  <>Renew your plan &rarr;</>
+                )}
               </span>
             )
           ) : null}

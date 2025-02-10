@@ -15,6 +15,7 @@ export async function getUserSubscriptionDetails(): Promise<UserPlanDetails> {
       isSubscribed: false,
       stripeCurrentPeriodEnd: null,
       stripeSubscriptionId: null,
+      user,
     };
   }
 
@@ -45,5 +46,6 @@ export async function getUserSubscriptionDetails(): Promise<UserPlanDetails> {
     stripeCurrentPeriodEnd: user.stripeCurrentPeriodEnd,
     stripePriceId: user.stripePriceId,
     isSubscribed,
+    user,
   };
 }

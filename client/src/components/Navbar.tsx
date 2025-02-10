@@ -1,11 +1,11 @@
 import { RootState } from "@/lib/store";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MoveRight } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import MobileNav from "./MobileNav";
-import { buttonVariants } from "./ui/button";
-import UserAccountNav from "./UserAccountNav";
+import { Button, buttonVariants } from "./ui/button";
+import UserNavDropdown from "./UserNavDropdown";
 
 const Navbar = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -15,7 +15,7 @@ const Navbar = () => {
       <MaxWidthWrapper>
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
           <Link to="/" className="flex z-40 font-semibold">
-            <span>quill.</span>
+            <img src="/images/logo.svg" alt="logo" width={150} />
           </Link>
 
           <MobileNav isAuth={!!user} />
@@ -32,14 +32,15 @@ const Navbar = () => {
                 >
                   Pricing
                 </Link>
-                <Link
-                  to="/dashboard"
-                  className={buttonVariants({
-                    size: "sm",
-                  })}
+                <Button
+                  asChild
+                  className="h-9 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600"
+                  size="sm"
                 >
-                  Get started <ArrowRight className="h-5 w-5" />
-                </Link>
+                  <Link to="/dashboard">
+                    <span>Get started</span> <MoveRight className="size-5" />
+                  </Link>
+                </Button>
               </>
             ) : (
               <>
@@ -53,11 +54,7 @@ const Navbar = () => {
                   Dashboard
                 </Link>
 
-                <UserAccountNav
-                  name={user.name ?? "Your AccountSettings"}
-                  email={user.email ?? ""}
-                  imageUrl={user.avatar ?? null}
-                />
+                <UserNavDropdown />
               </>
             )}
           </div>

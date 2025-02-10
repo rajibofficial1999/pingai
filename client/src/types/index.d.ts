@@ -8,6 +8,7 @@ declare global {
     stripeSubscriptionId?: string;
     stripePriceId?: string;
     stripeCurrentPeriodEnd?: Date;
+    availableCredits: number;
   }
 
   type Recurring = "month" | "year";
@@ -39,6 +40,7 @@ declare global {
     stripeCurrentPeriodEnd?: string | null;
     stripeSubscriptionId?: string | null;
     stripePriceId?: string;
+    user: User | null;
   }
 }
 

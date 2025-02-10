@@ -1,19 +1,23 @@
-import { ArrowRight, Loader2 } from "lucide-react";
-import { Button } from "./ui/button";
+import { RootState } from "@/lib/store";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { Loader2, MoveRight } from "lucide-react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
-import { useState } from "react";
+import { Button } from "./ui/button";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY!);
 
-const UpgradeButton = ({
-  priceId,
-  isUserCurrentPlan,
-}: {
+interface UpgradeButtonProps {
   priceId: string;
   isUserCurrentPlan: boolean;
+  credits: number | null;
+}
+
+const UpgradeButton: React.FC<UpgradeButtonProps> = ({
+  priceId,
+  isUserCurrentPlan,
+  credits,
 }) => {
   const { user } = useSelector((state: RootState) => state.auth);
 
@@ -27,6 +31,7 @@ const UpgradeButton = ({
         {
           price: priceId,
           userId: user?.id,
+          credits: credits ?? 0,
         }
       );
 
@@ -45,7 +50,7 @@ const UpgradeButton = ({
   return (
     <Button
       onClick={() => !isUserCurrentPlan && handleCheckout()}
-      className="w-full py-5 rounded-xl bg-gradient-to-r from-primary to-primary/70"
+      className="w-full py-5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600"
       disabled={isLoading || isUserCurrentPlan}
     >
       {isLoading ? <Loader2 className="mr-4 h-4 w-4 animate-spin" /> : null}
@@ -53,7 +58,7 @@ const UpgradeButton = ({
         "Current Plan"
       ) : (
         <>
-          Upgrade now <ArrowRight className="h-5 w-5 ml-1.5" />
+          Upgrade now <MoveRight className="h-5 w-5 ml-1.5" />
         </>
       )}
     </Button>

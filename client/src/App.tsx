@@ -1,13 +1,14 @@
 import { Route, Routes } from "react-router";
-import GuestLayout from "@/Layouts/GuestLayout.tsx";
-import Home from "@/Pages/Home.tsx";
-import AuthLayout from "@/Layouts/AuthLayout.tsx";
-import SignIn from "@/Pages/Auth/SignIn.tsx";
-import SignUp from "@/Pages/Auth/SignUp.tsx";
-import Dashboard from "@/Pages/Dashboard/Index";
-import Pricing from "@/Pages/Pricing";
-import Billing from "@/Pages/Dashboard/Account/Billing.tsx";
-import AccountSettings from "@/Pages/Dashboard/Account/Settings.tsx";
+import GuestLayout from "@/layouts/GuestLayout";
+import Home from "@/pages/Home";
+import AuthLayout from "@/layouts/AuthLayout";
+import SignIn from "@/pages/auth/SignIn";
+import SignUp from "@/pages/auth/SignUp";
+import Dashboard from "@/pages/dashboard/Index";
+import Pricing from "@/pages/Pricing";
+import Billing from "@/pages/dashboard/Profile/Billing";
+import Settings from "@/pages/dashboard/Profile/Settings";
+import Profile from "@/pages/dashboard/Profile/Index";
 
 const App = () => {
   return (
@@ -22,8 +23,9 @@ const App = () => {
 
       <Route element={<AuthLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/profile" element={<Profile />} />
         <Route path="/dashboard/billing" element={<Billing />} />
-        <Route path="/dashboard/account-settings" element={<AccountSettings />} />
+        <Route path="/dashboard/settings" element={<Settings />} />
       </Route>
     </Routes>
   );

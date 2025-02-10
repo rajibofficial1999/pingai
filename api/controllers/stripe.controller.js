@@ -4,7 +4,7 @@ import User from "../models/user.model.js";
 export const checkout = async (req, res) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   try {
-    const { price, userId } = req.body;
+    const { price, userId, credits } = req.body;
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -17,7 +17,7 @@ export const checkout = async (req, res) => {
       ],
       success_url: `${process.env.FRONTEND_URL}/dashboard?payment_status=success`,
       cancel_url: `${process.env.FRONTEND_URL}/dashboard?payment_status=cancel`,
-      metadata: { userId },
+      metadata: { userId, credits },
     });
 
     return res.status(200).json({ id: session.id });
@@ -118,6 +118,7 @@ export const stripeWebhook = async (req, res) => {
       {
         stripeSubscriptionId: subscription.id,
         stripePriceId: subscription.items.data[0]?.price.id,
+        availableCredits: session.metadata.credits,
         stripeCurrentPeriodEnd: new Date(
           subscription.current_period_end * 1000
         ),

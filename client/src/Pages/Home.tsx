@@ -1,8 +1,8 @@
-import { ArrowRight } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Link } from "react-router";
 import Navbar from "@/components/Navbar";
+import { buttonVariants } from "@/components/ui/button";
+import { MoveRight } from "lucide-react";
+import { Link } from "react-router";
 
 export default function Home() {
   return (
@@ -26,11 +26,11 @@ export default function Home() {
         <Link
           className={buttonVariants({
             size: "lg",
-            className: "mt-5",
+            className: "mt-5 bg-gradient-to-r from-blue-600 to-cyan-600",
           })}
           to="/dashboard"
         >
-          Get started <ArrowRight className="ml-2 h-5 w-5" />
+          Get started <MoveRight className="ml-2 h-5 w-5" />
         </Link>
       </MaxWidthWrapper>
 
@@ -55,7 +55,7 @@ export default function Home() {
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <img
-                    src="/dashboard-preview.jpg"
+                    src="/images/dashboard-preview.jpg"
                     alt="product preview"
                     width={1364}
                     height={866}
@@ -144,7 +144,7 @@ export default function Home() {
           <div className="mt-16 flow-root sm:mt-24">
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
               <img
-                src="/file-upload-preview.jpg"
+                src="/images/file-upload-preview.jpg"
                 alt="uploading preview"
                 width={1419}
                 height={732}

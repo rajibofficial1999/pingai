@@ -34,6 +34,7 @@ const userSchema = new Schema(
     },
     stripePriceId: String,
     stripeCurrentPeriodEnd: Date,
+    availableCredits: Number,
   },
   { timestamps: true }
 );
